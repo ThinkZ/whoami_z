@@ -1,6 +1,7 @@
 FROM golang:1-alpine as builder
 
-RUN apk --no-cache --no-progress add git ca-certificates tzdata make \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/" /etc/apk/repositories \
+    && apk --no-cache --no-progress add git ca-certificates tzdata make \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
@@ -9,7 +10,8 @@ WORKDIR /go/whoami
 # Download go modules
 COPY go.mod .
 COPY go.sum .
-RUN GO111MODULE=on GOPROXY=https://proxy.golang.org go mod download
+# RUN GO111MODULE=on GOPROXY=https://proxy.golang.org go mod download
+RUN GO111MODULE=on GOPROXY=https://mirrors.aliyun.com/goproxy go mod download
 
 COPY . .
 

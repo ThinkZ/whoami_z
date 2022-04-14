@@ -218,6 +218,8 @@ func whoamiHandler(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+ 	log.Printf("FROM:%s TO:%s %s %s", req.RemoteAddr, hostname, port, u)
+
 }
 
 func apiHandler(w http.ResponseWriter, req *http.Request) {
