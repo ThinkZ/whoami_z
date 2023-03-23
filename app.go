@@ -219,6 +219,7 @@ func whoamiHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
  	log.Printf("FROM:%s TO:%s %s %s", req.RemoteAddr, hostname, port, u)
+	log.Printf("%+v", req)
 
 }
 
